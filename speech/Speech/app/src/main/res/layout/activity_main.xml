@@ -20,35 +20,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3498db"
     tools:context="com.google.cloud.android.speech.MainActivity">
+
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#3498db"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"/>
+            android:layout_marginRight="10dp"
+            android:background="#3498db"/>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Next Patient" />
+        </LinearLayout>
 
         <include layout="@layout/item_result"/>
 
+
+
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/spacing_small"
+        android:orientation="vertical"
+        android:layout_marginTop="160dp"
         android:paddingTop="@dimen/spacing_small"
-        app:behavior_overlapTop="128dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:paddingBottom="@dimen/spacing_small">
+
+        <TextView
+            android:id="@+id/questionnairetext"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="Questionaire"
+            android:textColor="#ffffff"
+            android:background="#3498db"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="#3498db"
+            android:id="@+id/questionnaire"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Patient Status"
+                android:textColor="#ffffff"
+                android:background="#e74c3c"/>
+        <android.support.v7.widget.RecyclerView
+            android:background="#e74c3c"
+            android:id="@+id/patient_status"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:clipToPadding="false"
+            app:behavior_overlapTop="128dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#c0392b">
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Patient Vitals"
+                    android:textColor="#ffffff"/>
+
+                <android.support.v7.widget.RecyclerView
+                android:id="@+id/vitals"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:behavior_overlapTop="128dp"
+
+                    android:paddingTop="@dimen/spacing_small"
+                    android:paddingBottom="@dimen/spacing_small"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+            </LinearLayout>
+            <LinearLayout
+            android:layout_width="205dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/Precription"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Precriptions"
+                android:textColor="#ffffff"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/medications"
+                android:layout_width="205dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/spacing_small"
+                android:paddingBottom="@dimen/spacing_small"
+                app:behavior_overlapTop="128dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

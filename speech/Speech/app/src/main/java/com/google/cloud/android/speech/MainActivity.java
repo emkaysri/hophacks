@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
         mStatus = (TextView) findViewById(R.id.status);
         mText = (TextView) findViewById(R.id.text);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.patient_status);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         final ArrayList<String> results = savedInstanceState == null ? null :
                 savedInstanceState.getStringArrayList(STATE_RESULTS);
