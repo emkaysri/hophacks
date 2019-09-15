@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
 
     private static final String FRAGMENT_MESSAGE_DIALOG = "message_dialog";
 
-    private static final String STATE_RESULTS = "results";
+    private static final String STATE_RESULTS = "Patient Health";
+    private static final String STATE_RESULTS_VITALS = "VITALS";
+    private static final String STATE_RESULTS_Prescribe = "Prescription";
+    private static final String STATE_RESULTS_Question = "Question";
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 1;
 
@@ -90,6 +93,17 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
     private ResultAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
+    private ResultAdapter mAdapter_Vitals;
+    private RecyclerView mRecyclerView_Vitals;
+
+    private ResultAdapter mAdapter_Prescribe;
+    private RecyclerView mRecyclerView_Prescribe;
+
+    private ResultAdapter mAdapter_Question;
+    private RecyclerView mRecyclerView_Question;
+
+
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         @Override
@@ -126,6 +140,40 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
                 savedInstanceState.getStringArrayList(STATE_RESULTS);
         mAdapter = new ResultAdapter(results);
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView_Vitals = (RecyclerView) findViewById(R.id.vitals);
+        mRecyclerView_Vitals.setLayoutManager(new LinearLayoutManager(this));
+        final ArrayList<String> results_vitals = savedInstanceState == null ? null :
+                savedInstanceState.getStringArrayList(STATE_RESULTS_VITALS);
+        mAdapter_Vitals = new ResultAdapter(results_vitals);
+        mRecyclerView_Vitals.setAdapter(mAdapter_Vitals);
+
+        mRecyclerView_Prescribe = (RecyclerView) findViewById(R.id.medications);
+        mRecyclerView_Prescribe.setLayoutManager(new LinearLayoutManager(this));
+        final ArrayList<String> results_prescribe = savedInstanceState == null ? null :
+                savedInstanceState.getStringArrayList(STATE_RESULTS_Prescribe);
+        mAdapter_Prescribe = new ResultAdapter(results_prescribe);
+        mRecyclerView_Prescribe.setAdapter(mAdapter_Prescribe);
+
+
+        mRecyclerView_Question = (RecyclerView) findViewById(R.id.questionnaire);
+        mRecyclerView_Question.setLayoutManager(new LinearLayoutManager(this));
+        final ArrayList<String> results_question = savedInstanceState == null ? null :
+                savedInstanceState.getStringArrayList(STATE_RESULTS_Question);
+        mAdapter_Question = new ResultAdapter(results_question);
+        mRecyclerView_Question.setAdapter(mAdapter_Question);
+
+
+        mAdapter.addResult("How do you feel today");
+        mAdapter.addResult("Do you notice a change of appetite");
+        mAdapter.addResult("Check BP");
+        mAdapter.addResult("Check HR");
+
+
+        mRecyclerView.smoothScrollToPosition(0);
+
+
+
     }
 
     @Override
@@ -166,6 +214,12 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
         super.onSaveInstanceState(outState);
         if (mAdapter != null) {
             outState.putStringArrayList(STATE_RESULTS, mAdapter.getResults());
+        }
+        if (mAdapter_Prescribe != null) {
+            outState.putStringArrayList(STATE_RESULTS_Prescribe, mAdapter_Prescribe.getResults());
+        }
+        if (mAdapter_Vitals != null) {
+            outState.putStringArrayList(STATE_RESULTS_VITALS, mAdapter_Vitals.getResults());
         }
     }
 
@@ -250,8 +304,18 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
                             public void run() {
                                 if (isFinal) {
                                     mText.setText(null);
-                                    mAdapter.addResult(text);
-                                    mRecyclerView.smoothScrollToPosition(0);
+
+                                    if(text.toLowerCase().contains("prescribe")) {
+                                        mAdapter_Prescribe.addResult(text);
+                                        mRecyclerView_Prescribe.smoothScrollToPosition(0);
+
+                                    } else if (text.toLowerCase().contains("blood pressure") || text.toLowerCase().contains("bp") || text.toLowerCase().contains("rate") ||  text.toLowerCase().contains("oxygen") || text.toLowerCase().contains("level")){
+                                        mAdapter_Vitals.addResult(text);
+                                        mRecyclerView_Vitals.smoothScrollToPosition(0);
+                                    } else {
+                                        mAdapter.addResult(text);
+                                        mRecyclerView.smoothScrollToPosition(0);
+                                    }
                                 } else {
                                     mText.setText(text);
                                 }
