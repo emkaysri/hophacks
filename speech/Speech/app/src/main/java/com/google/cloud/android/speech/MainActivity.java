@@ -164,13 +164,13 @@ public class MainActivity extends AppCompatActivity implements MessageDialogFrag
         mRecyclerView_Question.setAdapter(mAdapter_Question);
 
 
-        mAdapter.addResult("How do you feel today");
-        mAdapter.addResult("Do you notice a change of appetite");
-        mAdapter.addResult("Check BP");
-        mAdapter.addResult("Check HR");
+        mAdapter_Question.addResult("How do you feel today");
+        mAdapter_Question.addResult("Do you notice a change of appetite");
+        mAdapter_Question.addResult("Check BP");
+        mAdapter_Question.addResult("Check HR");
 
 
-        mRecyclerView.smoothScrollToPosition(0);
+        mRecyclerView_Question.smoothScrollToPosition(0);
 
 
 
